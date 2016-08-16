@@ -182,7 +182,7 @@ func main() {
 	var layerIndex = 0
 	fmt.Println("---- id and createdBy")
 	for _, createdBy := range createdByHistoryList {
-		if strings.Index(createdBy, "#(nop)") != -1 && strings.Index(createdBy, "CMD") != -1 {
+		if strings.Index(createdBy, "#(nop)") != -1 && strings.Index(createdBy, "ADD") == -1 && strings.Index(createdBy, "COPY") == -1 {
 			fmt.Println("--------" + createdBy)
 		} else {
 			var layerID = layerHistoryList[layerIndex]
