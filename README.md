@@ -59,7 +59,7 @@ A etc/apt/apt.conf.d/docker-autoremove-suggests 44 0():0() 100644
 * [Layering of Docker images – Thomas Uhrig](http://tuhrig.de/layering-of-docker-images/)
 
 
-# Talk about docker diffi
+# Discussion about docker diffi
 
 * [diffi command to inspect changes on image filesystem by ashwinphatak · Pull Request #12919 · docker/docker](https://github.com/docker/docker/pull/12919)
 
