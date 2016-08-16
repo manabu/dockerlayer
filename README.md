@@ -64,3 +64,7 @@ A etc/apt/apt.conf.d/docker-autoremove-suggests 44 0():0() 100644
 * [diffi command to inspect changes on image filesystem by ashwinphatak · Pull Request #12919 · docker/docker](https://github.com/docker/docker/pull/12919)
 
 * [[Proposal]: docker diff between image layers · Issue #12641 · docker/docker](https://github.com/docker/docker/issues/12641)
+
+# TODO
+
+[ ] support file filter
