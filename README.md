@@ -5,8 +5,6 @@ Display some docker layer information
 
 * [docker/v1.md at master · docker/docker](https://github.com/docker/docker/blob/master/image/spec/v1.md)
 
-* [docker/v1.md at master · docker/docker](https://github.com/docker/docker/blob/master/image/spec/v1.md)
-
 * [distribution/manifest-v2-2.md at master · docker/distribution](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md)
 
 * [opencontainers/image-spec: OCI Image Format](https://github.com/opencontainers/image-spec)
