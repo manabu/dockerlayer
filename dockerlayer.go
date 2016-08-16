@@ -28,6 +28,7 @@ func main() {
 	var createdByHistoryList = []string{}
 	// layer ID -> json
 	var jsonMap = map[string]string{}
+	var allJsonMap = map[string]string{}
 	var layerTarMap = map[string][]*tar.Header{}
 	var first = false
 	for _, history := range historyList {
@@ -71,7 +72,7 @@ func main() {
 				if strings.HasSuffix(header.Name, "/json") {
 					var jsonstring = buf2.String()
 					//var imagestring = ""
-
+					allJsonMap[layerID] = jsonstring
 					if strings.Index(jsonstring, "\"Image\":\"\"") != -1 || !first {
 						jsonMap[layerID] = jsonstring
 					}
@@ -178,15 +179,30 @@ func main() {
 	// for _, createdBy := range createdByHistoryList {
 	// 	fmt.Println(createdBy)
 	// }
-	//
-	var layerIndex = 0
-	fmt.Println("---- id and createdBy")
+	var createdByListMap = map[string][]string{}
+	var currentLayerID = ""
+	var currentLayerIndex = 0
 	for _, createdBy := range createdByHistoryList {
 		if strings.Index(createdBy, "#(nop)") != -1 && strings.Index(createdBy, "ADD") == -1 && strings.Index(createdBy, "COPY") == -1 {
-			fmt.Println("--------" + createdBy)
+			//fmt.Println(strings.Repeat("-", 12) + " " + createdBy)
+		} else {
+			currentLayerID = layerHistoryList[currentLayerIndex]
+			currentLayerIndex++
+		}
+		createdByListMap[currentLayerID] = append(createdByListMap[currentLayerID], createdBy)
+	}
+	//
+	var layerIndex = 0
+
+	for _, createdBy := range createdByHistoryList {
+		if strings.Index(createdBy, "#(nop)") != -1 && strings.Index(createdBy, "ADD") == -1 && strings.Index(createdBy, "COPY") == -1 {
+			//fmt.Println(strings.Repeat("-", 12) + " " + createdBy)
 		} else {
 			var layerID = layerHistoryList[layerIndex]
-			fmt.Println(layerID + "  " + createdBy)
+			for _, savedCreatedBy := range createdByListMap[layerID] {
+				fmt.Println(layerID[:12] + "  " + savedCreatedBy)
+			}
+			//fmt.Println(allJsonMap[layerID])
 
 			for _, layerTarHeader := range layerTarMap[layerID] {
 				var filename = layerTarHeader.Name
@@ -230,7 +246,7 @@ func main() {
 				}
 				// calc size
 
-				fmt.Println(status + " " + filename + " " + strconv.FormatInt(fileSize, 10))
+				fmt.Println(status + " " + filename + " " + strconv.FormatInt(fileSize, 10) + " " + strconv.Itoa(layerTarHeader.Uid) + "(" + layerTarHeader.Uname + ")" + ":" + strconv.Itoa(layerTarHeader.Gid) + "(" + layerTarHeader.Gname + ")" + " " + strconv.FormatInt(layerTarHeader.Mode, 8))
 			}
 
 			layerIndex++
