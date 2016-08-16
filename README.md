@@ -1,5 +1,15 @@
 # dockerlayer
-Display some docker layer information
+Display some docker layer information.
+
+Output Style inspired by [[Proposal]: docker diff between image layers · Issue #12641 · docker/docker](https://github.com/docker/docker/issues/12641)
+
+# Before Use
+
+I need more investigate about Image format and others.
+
+I develop with comparing with ***docker history*** command.
+
+And I assume Image format v1
 
 # Usage
 
@@ -67,4 +77,8 @@ A etc/apt/apt.conf.d/docker-autoremove-suggests 44 0():0() 100644
 
 # TODO
 
-[ ] support file filter
+- [ ] Support file filter (My motivation)
+- [ ] Investigate image format
+- [ ] Improve output format
+- [ ] Build command
+- [ ] Add test
