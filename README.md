@@ -77,7 +77,6 @@ A etc/apt/apt.conf.d/docker-autoremove-suggests 44 0():0() 100644
 
 # TODO
 
-- [ ] Support file filter (My motivation)
 - [ ] Investigate image format
 - [ ] Improve output format
 - [ ] Build command
