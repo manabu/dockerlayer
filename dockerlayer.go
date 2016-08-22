@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -16,9 +17,16 @@ import (
 func main() {
 	endpoint := "unix:///var/run/docker.sock"
 	client, _ := docker.NewClient(endpoint)
-	if len(os.Args) < 2 {
+	var isFiltering = false
+	var filteringWord = ""
+	var argc = len(os.Args)
+	if argc < 2 {
 		os.Exit(2)
+	} else if argc == 3 {
+		isFiltering = true
+		filteringWord = os.Args[2]
 	}
+
 	historyList, err := client.ImageHistory(os.Args[1])
 	if err != nil {
 		fmt.Println("Error happens at client.ImageHistory")
@@ -245,8 +253,18 @@ func main() {
 					status = "D"
 				}
 				// calc size
-
-				fmt.Println(status + " " + filename + " " + strconv.FormatInt(fileSize, 10) + " " + strconv.Itoa(layerTarHeader.Uid) + "(" + layerTarHeader.Uname + ")" + ":" + strconv.Itoa(layerTarHeader.Gid) + "(" + layerTarHeader.Gname + ")" + " " + strconv.FormatInt(layerTarHeader.Mode, 8))
+				//
+				var isOutput = false
+				if isFiltering {
+					if m, _ := regexp.MatchString(filteringWord, filename); m {
+						isOutput = true
+					}
+				} else {
+					isOutput = true
+				}
+				if isOutput {
+					fmt.Println(status + " " + filename + " " + strconv.FormatInt(fileSize, 10) + " " + strconv.Itoa(layerTarHeader.Uid) + "(" + layerTarHeader.Uname + ")" + ":" + strconv.Itoa(layerTarHeader.Gid) + "(" + layerTarHeader.Gname + ")" + " " + strconv.FormatInt(layerTarHeader.Mode, 8))
+				}
 			}
 
 			layerIndex++
