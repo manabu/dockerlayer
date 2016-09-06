@@ -14,6 +14,8 @@ import (
 	"github.com/fsouza/go-dockerclient"
 )
 
+const version = "0.1.2-dev"
+
 func main() {
 	endpoint := "unix:///var/run/docker.sock"
 	client, _ := docker.NewClient(endpoint)
