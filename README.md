@@ -58,6 +58,20 @@ C etc/apt/apt.conf.d/ 0 0():0() 40755
 A etc/apt/apt.conf.d/docker-autoremove-suggests 44 0():0() 100644
 ```
 
+## about filter
+
+If you want to filter with file or directory name
+
+```
+go run dockerlayer.go sources
+```
+
+### current spec
+
+1. Match is executed by ```regexp.MatchString```
+2. ```/var/run/docker``` is stored with ```var/run/docker``` in tar file.
+
+
 ## about .wh. file
 
 * [docker/v1.md at master · docker/docker](https://github.com/docker/docker/blob/master/image/spec/v1.md)
