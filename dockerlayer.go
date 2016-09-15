@@ -148,7 +148,7 @@ func main() {
 		}
 		currentid = relation[currentid]
 	}
-	//
+	// File History List key is filename and value is layerid
 	var fileHistoryListMap = map[string][]string{}
 	var layerHistoryList = []string{}
 	// fmt.Println("---- reconstruct")
