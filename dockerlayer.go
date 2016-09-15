@@ -36,6 +36,15 @@ func main() {
 	}
 	// First CreatedBy newer to older
 	var createdByHistoryList = []string{}
+	//
+	var etcpasswdmap = map[string]string{}
+	var etcgroupmap = map[string]string{}
+	// WORKAROUND
+	var etcpasswdstring = ""
+	var etcgroupstring = ""
+	// WORKAROUND
+	var etcpasswduidnamemap = map[int]string{}
+	var etcgroupgidnamemap = map[int]string{}
 	// layer ID -> json
 	var jsonMap = map[string]string{}
 	var allJsonMap = map[string]string{}
@@ -97,6 +106,45 @@ func main() {
 							break
 						}
 						layerTarMap[layerID] = append(layerTarMap[layerID], layerTarHeader)
+						// read for etcpasswd and etcgroup
+						if layerTarHeader.Name == "etc/passwd" || layerTarHeader.Name == "etc/group" {
+							layerTarBuffer := new(bytes.Buffer)
+							if _, err = io.Copy(layerTarBuffer, layerTar); err != nil {
+								fmt.Println(err)
+							}
+							// TODO store json data
+							var etcfilejsonstring = layerTarBuffer.String()
+							// fmt.Println("FILENAME=[" + layerTarHeader.Name + "]")
+							// fmt.Println(etcfilejsonstring)
+							if layerTarHeader.Name == "etc/passwd" {
+								etcpasswdmap[layerID] = etcfilejsonstring
+
+								if etcpasswdstring == "" {
+									etcpasswdstring = etcfilejsonstring
+									var lines = strings.Split(etcpasswdstring, "\n")
+									for _, line := range lines {
+										var fields = strings.Split(line, ":")
+										if len(fields) > 2 {
+											var uid, _ = strconv.Atoi(fields[2])
+											etcpasswduidnamemap[uid] = fields[0]
+										}
+									}
+								}
+							} else if layerTarHeader.Name == "etc/group" {
+								etcgroupmap[layerID] = etcfilejsonstring
+								if etcgroupstring == "" {
+									etcgroupstring = etcfilejsonstring
+									var lines = strings.Split(etcgroupstring, "\n")
+									for _, line := range lines {
+										var fields = strings.Split(line, ":")
+										if len(fields) > 2 {
+											var gid, _ = strconv.Atoi(fields[2])
+											etcgroupgidnamemap[gid] = fields[0]
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
@@ -265,7 +313,8 @@ func main() {
 					isOutput = true
 				}
 				if isOutput {
-					fmt.Println(status + " " + filename + " " + strconv.FormatInt(fileSize, 10) + " " + strconv.Itoa(layerTarHeader.Uid) + "(" + layerTarHeader.Uname + ")" + ":" + strconv.Itoa(layerTarHeader.Gid) + "(" + layerTarHeader.Gname + ")" + " " + strconv.FormatInt(layerTarHeader.Mode, 8))
+					//fmt.Println(status + " " + filename + " " + strconv.FormatInt(fileSize, 10) + " " + strconv.Itoa(layerTarHeader.Uid) + "(" + layerTarHeader.Uname + ")" + ":" + strconv.Itoa(layerTarHeader.Gid) + "(" + layerTarHeader.Gname + ")" + " " + strconv.FormatInt(layerTarHeader.Mode, 8))
+					fmt.Println(status + " " + filename + " " + strconv.FormatInt(fileSize, 10) + " " + strconv.Itoa(layerTarHeader.Uid) + "(" + etcpasswduidnamemap[layerTarHeader.Uid] + ")" + ":" + strconv.Itoa(layerTarHeader.Gid) + "(" + etcgroupgidnamemap[layerTarHeader.Gid] + ")" + " " + strconv.FormatInt(layerTarHeader.Mode, 8))
 				}
 			}
 
