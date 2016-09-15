@@ -89,6 +89,10 @@ go run dockerlayer.go sources
 
 * [[Proposal]: docker diff between image layers · Issue #12641 · docker/docker](https://github.com/docker/docker/issues/12641)
 
+# Go version
+
+1.7
+
 # TODO
 
 - [ ] Investigate image format
