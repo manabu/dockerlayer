@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"archive/tar"
@@ -12,24 +12,39 @@ import (
 	"strings"
 
 	"github.com/fsouza/go-dockerclient"
+	"github.com/spf13/cobra"
 )
 
-const version = "0.1.3-dev"
+func init() {
+	RootCmd.AddCommand(runCmd)
 
-func main() {
+}
+
+var runCmd = &cobra.Command{
+	Use:   "run",
+	Short: "Run dockerlayer",
+	Long:  `Run dockerlayer`,
+	Run: func(cmd *cobra.Command, args []string) {
+		main2(args)
+	},
+}
+
+func main2(args []string) {
 	endpoint := "unix:///var/run/docker.sock"
 	client, _ := docker.NewClient(endpoint)
 	var isFiltering = false
 	var filteringWord = ""
-	var argc = len(os.Args)
-	if argc < 2 {
+	var argc = len(args)
+	if argc < 1 {
+		fmt.Println("too few argments")
 		os.Exit(2)
-	} else if argc == 3 {
+	} else if argc == 2 {
 		isFiltering = true
-		filteringWord = os.Args[2]
+		filteringWord = args[1]
 	}
+	fmt.Println("Image is [" + args[0] + "]")
 
-	historyList, err := client.ImageHistory(os.Args[1])
+	historyList, err := client.ImageHistory(args[0])
 	if err != nil {
 		fmt.Println("Error happens at client.ImageHistory")
 		os.Exit(2)
