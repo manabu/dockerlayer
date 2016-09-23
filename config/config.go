@@ -1,5 +1,5 @@
 package config
 
 var (
-	VersionString = "not set" // VersionString
+	VersionString = "not set version string" // VersionString
 )
