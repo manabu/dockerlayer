@@ -3,7 +3,8 @@ dev:
   steps:
     - internal/watch:
         code: |
-          go build ./...
+          COMMITID=$(git show -s --format=%h)
+          go build -ldflags "-X config.CommitID ${COMMITID}" ./...
           ./source
         reload: true
 build:

@@ -17,6 +17,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of dockerlayer",
 	Long:  `Print the version number of dockerlayer`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("dockerlayer version %s\n", config.VersionString)
+		fmt.Printf("dockerlayer version %s (%s)\n", config.VersionString, config.CommitID)
 	},
 }
