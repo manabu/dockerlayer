@@ -35,7 +35,7 @@ deploy:
           chmod +x /usr/local/bin/jq
           go get github.com/motemen/gobump/cmd/gobump
           go get github.com/inconshreveable/mousetrap
-          go get github.com/Microsoft/go-winio
+          go get -d github.com/Microsoft/go-winio
     - script:
         name: get version from gobump
         code: |
