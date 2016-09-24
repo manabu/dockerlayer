@@ -49,11 +49,13 @@ deploy:
     - script:
         name: go get
         code: |
+          COMMITID=$(git show -s --format=%h)
           go get ./...
     - wercker/gox:
         os: darwin linux windows
         arch: 386 amd64
         output: '{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}'
+        ldflags: "-X config.CommitID ${COMMITID}"
         dest: $WERCKER_OUTPUT_DIR/pkg
     - script:
         name: include assets into artifacts
