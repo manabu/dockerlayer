@@ -34,6 +34,7 @@ deploy:
           curl -L http://stedolan.github.io/jq/download/linux64/jq -o /usr/local/bin/jq
           chmod +x /usr/local/bin/jq
           go get github.com/motemen/gobump/cmd/gobump
+          go get github.com/inconshreveable/mousetrap
     - script:
         name: get version from gobump
         code: |
