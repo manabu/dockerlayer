@@ -47,9 +47,12 @@ deploy:
         label_pattern_major: ^(major|breaking)$
         label_pattern_minor: ^(minor|feature)$
     - script:
-        name: go get
+        name: get git commit ID
         code: |
           export COMMITID=$(git show -s --format=%h)
+    - script:
+        name: go get
+        code: |
           go get ./...
     - tcnksm/gox:
         os: darwin linux windows
