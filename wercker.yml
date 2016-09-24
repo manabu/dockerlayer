@@ -51,7 +51,7 @@ deploy:
         code: |
           COMMITID=$(git show -s --format=%h)
           go get ./...
-    - wercker/gox:
+    - tcnksm/gox:
         os: darwin linux windows
         arch: 386 amd64
         output: '{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}'
