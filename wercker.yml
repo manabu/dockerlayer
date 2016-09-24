@@ -54,7 +54,7 @@ deploy:
         name: go get
         code: |
           go get ./...
-    - tcnksm/gox:
+    - wercker/gox:
         os: darwin linux windows
         arch: 386 amd64
         output: '{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}'
