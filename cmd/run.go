@@ -62,7 +62,7 @@ func main2(args []string) {
 	var etcgroupgidnamemap = map[int]string{}
 	// layer ID -> json
 	var jsonMap = map[string]string{}
-	var allJsonMap = map[string]string{}
+	var allJSONMap = map[string]string{}
 	var layerTarMap = map[string][]*tar.Header{}
 	var first = false
 	for _, history := range historyList {
@@ -106,7 +106,7 @@ func main2(args []string) {
 				if strings.HasSuffix(header.Name, "/json") {
 					var jsonstring = buf2.String()
 					//var imagestring = ""
-					allJsonMap[layerID] = jsonstring
+					allJSONMap[layerID] = jsonstring
 					if strings.Index(jsonstring, "\"Image\":\"\"") != -1 || !first {
 						jsonMap[layerID] = jsonstring
 					}
@@ -275,7 +275,7 @@ func main2(args []string) {
 			for _, savedCreatedBy := range createdByListMap[layerID] {
 				fmt.Println(layerID[:12] + "  " + savedCreatedBy)
 			}
-			//fmt.Println(allJsonMap[layerID])
+			//fmt.Println(allJSONMap[layerID])
 
 			for _, layerTarHeader := range layerTarMap[layerID] {
 				var filename = layerTarHeader.Name
