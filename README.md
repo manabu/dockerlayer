@@ -89,6 +89,29 @@ go run dockerlayer.go sources
 
 * [[Proposal]: docker diff between image layers · Issue #12641 · docker/docker](https://github.com/docker/docker/issues/12641)
 
+# Windows building error
+
+
+To fix this
+
+```
+--> windows/amd64 error: exit status 1
+Stderr: ../../fsouza/go-dockerclient/client_windows.go:16:2: cannot find package "github.com/Microsoft/go-winio" in any of:
+	/goroot/src/github.com/Microsoft/go-winio (from $GOROOT)
+	/gopath/src/github.com/Microsoft/go-winio (from $GOPATH)
+../../spf13/cobra/command_win.go:9:2: cannot find package "github.com/inconshreveable/mousetrap" in any of:
+	/goroot/src/github.com/inconshreveable/mousetrap (from $GOROOT)
+	/gopath/src/github.com/inconshreveable/mousetrap (from $GOPATH)
+```
+
+Get
+
+```
+go get github.com/inconshreveable/mousetrap
+go get -d github.com/Microsoft/go-winio
+```
+
+
 # TODO
 
 - [ ] Investigate image format
