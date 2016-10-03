@@ -13,10 +13,9 @@ var userLicense string
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "dockerlayer",
-	Short: "A generator for Cobra based Applications",
-	Long: `Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Display some docker layer information.",
+	Long: `Display some docker layer information.
+filtering file name support`,
 }
 
 //Execute adds all child commands to the root command sets flags appropriately.
