@@ -1,3 +1,5 @@
+[![wercker status](https://app.wercker.com/status/e65cc8012a3f1a833c621a7e53f7fd2e/m/master "wercker status")](https://app.wercker.com/project/byKey/e65cc8012a3f1a833c621a7e53f7fd2e)
+
 # dockerlayer
 Display some docker layer information.
 
