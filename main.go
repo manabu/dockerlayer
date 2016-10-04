@@ -8,7 +8,7 @@ import (
 	"github.com/manabu/dockerlayer/config"
 )
 
-const version = "0.1.3"
+const version = "0.1.4-dev"
 
 func init() {
 	config.VersionString = version
