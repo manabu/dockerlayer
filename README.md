@@ -5,6 +5,23 @@ Display some docker layer information.
 
 Output Style inspired by [[Proposal]: docker diff between image layers · Issue #12641 · docker/docker](https://github.com/docker/docker/issues/12641)
 
+# Download
+
+All releases are
+
+* [Releases · manabu/dockerlayer](https://github.com/manabu/dockerlayer/releases)
+
+## Latest Stable release
+
+* [Release 0.1.3 · manabu/dockerlayer](https://github.com/manabu/dockerlayer/releases/tag/0.1.3)
+
+## Latest Dev version
+
+* [Release 0.1.4-dev · manabu/dockerlayer](https://github.com/manabu/dockerlayer/releases/tag/0.1.4-dev)
+
+
+
+
 # Before Use
 
 I need more investigate about Image format and others.
@@ -120,3 +137,4 @@ go get -d github.com/Microsoft/go-winio
 - [ ] Improve output format
 - [ ] Build command
 - [ ] Add test
+- [ ] Support JSON format
